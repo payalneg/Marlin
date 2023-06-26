@@ -106,6 +106,8 @@ static SPISettings spiConfig;
     hal.isr_on();                                                 // Enable interrupts
     return data;
   }
+  
+  uint8_t spiRec(uint32_t chan) { return spiRec(); }
 
   // Soft SPI read data
   void spiRead(uint8_t *buf, uint16_t nbyte) {
@@ -120,6 +122,13 @@ static SPISettings spiConfig;
     hal.isr_on();                           // Enable interrupts
   }
 
+  void spiSend(uint32_t chan, byte b) { spiSend(b); }
+
+  // Write buffer to specified SPI channel
+  void spiSend(uint32_t chan, const uint8_t *buf, size_t n) {
+    for (size_t p = 0; p < n; p++) spiSend(chan, buf[p]);
+  }
+  
   // Soft SPI send block
   void spiSendBlock(uint8_t token, const uint8_t *buf) {
     spiSend(token);
@@ -185,6 +194,8 @@ static SPISettings spiConfig;
     return returnByte;
   }
 
+  uint8_t spiRec(uint32_t chan) { return spiRec(); }
+
   /**
    * @brief  Receive a number of bytes from the SPI port to a buffer
    *
@@ -211,6 +222,13 @@ static SPISettings spiConfig;
     SPI.transfer(b);
   }
 
+  void spiSend(uint32_t chan, byte b) { spiSend(b); }
+
+  // Write buffer to specified SPI channel
+  void spiSend(uint32_t chan, const uint8_t *buf, size_t n) {
+    for (size_t p = 0; p < n; p++) spiSend(chan, buf[p]);
+  }
+  
   /**
    * @brief  Write token and then write from 512 byte buffer to SPI (for SD card)
    *

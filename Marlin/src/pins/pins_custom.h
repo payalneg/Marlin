@@ -33,7 +33,17 @@
 
 // Use one of these or SDCard-based Emulation will be used
 //#define SRAM_EEPROM_EMULATION                   // Use BackSRAM-based EEPROM emulation
-#define FLASH_EEPROM_EMULATION                  // Use Flash-based EEPROM emulation
+//#define FLASH_EEPROM_EMULATION                  // Use Flash-based EEPROM emulation
+#define SPI_EEPROM
+#define SOFTWARE_SPI 1
+
+#define SPI_CHAN_EEPROM1                     1
+#define SPI_EEPROM1_CS_PIN                PA15  // datasheet: /CS pin, found with multimeter, not tested
+#define EEPROM_SCK_PIN                    PB3  // datasheet: CLK pin, found with multimeter, not tested
+#define EEPROM_MISO_PIN                   PB4  // datasheet: DO pin, found with multimeter, not tested
+#define EEPROM_MOSI_PIN                   PB5  // datasheet: DI pin, found with multimeter, not tested
+#define EEPROM_PAGE_SIZE               0x1000U  // 4K (from datasheet)
+#define MARLIN_EEPROM_SIZE 16UL * (EEPROM_PAGE_SIZE)  // Limit to 64K for now...
 
 //
 // Steppers
